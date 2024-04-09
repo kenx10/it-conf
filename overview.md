@@ -21,9 +21,10 @@
         clickhouse3
 
     * Hadoop
-        hadoop1
-        hadoop2
-        hadoop3
+        hadoop1 - namenode
+        hadoop2 - secondary namenode, datanode
+        hadoop3 - datanode
+        hadoop4 - datanode
 
     * Kafka
         kafka1
@@ -64,6 +65,7 @@ lxc launch ubuntu:20.04 clickhouse3 --vm --network enp5s0 --config limits.cpu=4 
 lxc launch ubuntu:20.04 hadoop1 --vm --network enp5s0 --config limits.cpu=4 --config limits.memory=4096MB
 lxc launch ubuntu:20.04 hadoop2 --vm --network enp5s0 --config limits.cpu=4 --config limits.memory=4096MB
 lxc launch ubuntu:20.04 hadoop3 --vm --network enp5s0 --config limits.cpu=4 --config limits.memory=4096MB
+lxc launch ubuntu:20.04 hadoop4 --vm --network enp5s0 --config limits.cpu=4 --config limits.memory=4096MB
 
 lxc launch ubuntu:20.04 gitlab --vm --network enp5s0 --config limits.cpu=1 --config limits.memory=4096MB
 lxc launch ubuntu:20.04 gitlab-worker --vm --network enp5s0 --config limits.cpu=1 --config limits.memory=4096MB
@@ -109,6 +111,7 @@ lxc delete clickhouse3 --force
 lxc delete hadoop1 --force
 lxc delete hadoop2 --force
 lxc delete hadoop3 --force
+lxc delete hadoop4 --force
 
 lxc delete gitlab --force
 lxc delete gitlab-worker --force
