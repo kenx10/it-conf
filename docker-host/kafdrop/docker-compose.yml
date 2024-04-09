@@ -1,0 +1,9 @@
+version: '3'
+services:
+  kafdrop:
+    image: obsidiandynamics/kafdrop
+    restart: "unless-stopped"
+    ports:
+      - "9000:9000"
+    environment:
+      KAFKA_BROKERCONNECT: "kafka1:9092, kafka2:9092, kafka3:9092"
