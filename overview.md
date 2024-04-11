@@ -62,6 +62,10 @@ lxc launch ubuntu:20.04 clickhouse1 --vm --network enp5s0 --config limits.cpu=4 
 lxc launch ubuntu:20.04 clickhouse2 --vm --network enp5s0 --config limits.cpu=4 --config limits.memory=4096MB
 lxc launch ubuntu:20.04 clickhouse3 --vm --network enp5s0 --config limits.cpu=4 --config limits.memory=4096MB
 
+lxc launch ubuntu:20.04 zookeeper1 --vm --network enp5s0 --config limits.cpu=4 --config limits.memory=4096MB
+lxc launch ubuntu:20.04 zookeeper2 --vm --network enp5s0 --config limits.cpu=4 --config limits.memory=4096MB
+lxc launch ubuntu:20.04 zookeeper3 --vm --network enp5s0 --config limits.cpu=4 --config limits.memory=4096MB
+
 lxc launch ubuntu:20.04 hadoop1 --vm --network enp5s0 --config limits.cpu=4 --config limits.memory=4096MB
 lxc launch ubuntu:20.04 hadoop2 --vm --network enp5s0 --config limits.cpu=4 --config limits.memory=4096MB
 lxc launch ubuntu:20.04 hadoop3 --vm --network enp5s0 --config limits.cpu=4 --config limits.memory=4096MB
@@ -88,6 +92,80 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDXIYlhbOCiB46Twrmzh3D5N/o8QnDmwEWlaHfoLo2Ot
 EOF
 ```
 
+Скрипт остановки:
+```
+lxc stop proxy --force
+
+lxc stop k8s1 --force
+lxc stop k8s2 --force
+lxc stop k8s3 --force
+lxc stop k8s4 --force
+lxc stop k8s5 --force
+lxc stop k8s6 --force
+
+lxc stop postgres1 --force
+lxc stop postgres2 --force
+lxc stop postgres3 --force
+
+lxc stop clickhouse1 --force
+lxc stop clickhouse2 --force
+lxc stop clickhouse3 --force
+
+lxc stop zookeeper1 --force
+lxc stop zookeeper2 --force
+lxc stop zookeeper3 --force
+
+lxc stop kafka1 --force
+lxc stop kafka2 --force
+lxc stop kafka3 --force
+
+lxc stop hadoop1 --force
+lxc stop hadoop2 --force
+lxc stop hadoop3 --force
+lxc stop hadoop4 --force
+
+lxc stop gitlab --force
+lxc stop gitlab-worker --force
+lxc stop nexus --force
+lxc stop redmine --force
+lxc stop docker-host --force
+```
+
+Скрипт запуска:
+```
+lxc start proxy
+
+lxc start k8s1
+lxc start k8s2
+lxc start k8s3
+lxc start k8s4
+lxc start k8s5
+lxc start k8s6
+
+lxc start postgres1
+lxc start postgres2
+lxc start postgres3
+
+lxc start clickhouse1
+lxc start clickhouse2
+lxc start clickhouse3
+
+lxc start kafka1
+lxc start kafka2
+lxc start kafka3
+
+
+lxc start hadoop1
+lxc start hadoop2
+lxc start hadoop3
+lxc start hadoop4
+
+lxc start gitlab
+lxc start gitlab-worker
+lxc start nexus
+lxc start redmine
+lxc start docker-host
+```
 
 Скрипт удаления:
 ```

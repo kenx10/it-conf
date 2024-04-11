@@ -14,6 +14,10 @@ tee -a /etc/hosts <<EOF
 192.168.1.57    hadoop2
 192.168.1.44    hadoop3
 192.168.1.67    hadoop4
+
+192.168.1.54    zookeeper1
+192.168.1.45    zookeeper2
+192.168.1.68    zookeeper3
 EOF
 
 
@@ -114,6 +118,7 @@ tee /opt/hadoop/etc/hadoop/yarn-site.xml <<EOF
 EOF
 
 tee /opt/hadoop/etc/hadoop/workers <<EOF
+hadoop1
 hadoop2
 hadoop3
 hadoop4
@@ -206,3 +211,12 @@ Restart=always
 [Install]
 WantedBy=multi-user.target
 EOF
+
+
+
+
+# ========
+rm -Rf /tmp/hadoop-root
+rm -Rf /hdfs/data/dataNode
+
+hdfs namenode -format
