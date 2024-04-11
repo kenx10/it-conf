@@ -1,0 +1,14 @@
+[Unit]
+Description=Hadoop && HBase
+After=network.target
+
+[Service]
+User=root
+Group=root
+Type=simple
+ExecStart=/opt/hadoop/sbin/start-dfs.sh && /opt/hadoop/sbin/start-yarn.sh && /opt/hbase/bin/start-hbase.sh
+ExecStop=/opt/hbase/bin/stop-yarn.sh && /opt/hbase/bin/stop-dfs.sh && /opt/hadoop/sbin/stop-all.sh
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
