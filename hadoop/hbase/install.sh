@@ -5,11 +5,10 @@ tar -xzvf hbase-2.5.8-bin.tar.gz
 mv hbase-2.5.8 /opt/hbase
 
 HBASE_HOME=/opt/hbase
-
 tee -a ~/.bashrc <<EOF
 HBASE_HOME=/opt/hbase
 export HBASE_HOME
-export PATH=\$PATH:\${HBASE_HOME}/bin
+export PATH=$PATH:${HBASE_HOME}/bin
 EOF
 
 nano ~/.bashrc
@@ -42,7 +41,7 @@ tee /opt/hbase/conf/hbase-env.xml <<EOF
   </property>
 <property>
     <name>hbase.zookeeper.quorum</name>
-    <value>hadoop1, hadoop2, hadoop3, hadoop4, hadoop5</value>
+    <value>hadoop1, hadoop2, hadoop3, hadoop4</value>
   </property>
 <property>
     <name>hbase.zookeeper.property.clientPort</name>
@@ -56,29 +55,7 @@ hadoop1
 hadoop2
 hadoop3
 hadoop4
-hadoop5
 EOF
-
-tee /opt/start-hh.sh <<EOF
-#!/bin/sh
-
-for hostname in "\$@"
-do
-    while ! ping -c 1 \$hostname &>/dev/null
-            do echo "\$hostname: Ping Fail"
-    done
-    echo "\$hostname: Ping OK"
-done
-
-/opt/hadoop/sbin/start-dfs.sh && /opt/hadoop/sbin/start-yarn.sh && /opt/hbase/bin/start-hbase.sh
-EOF
-
-tee /opt/stop-hh.sh <<EOF
-/opt/hbase/bin/stop-hbase.sh && /opt/hadoop/sbin/stop-dfs.sh && /opt/hadoop/sbin/stop-yarn.sh
-EOF
-
-chmod 700 /opt/start-hh.sh
-chmod 700 /opt/stop-hh.sh
 
 tee /etc/systemd/system/hh.service <<EOF
 [Unit]
@@ -89,8 +66,8 @@ After=network.target
 User=root
 Group=root
 Type=simple
-ExecStart=bash /opt/start-hh.sh hadoop1 hadoop2 hadoop3 hadoop4 hadoop5
-ExecStop=bash /opt/stop-hh.sh
+ExecStart=/opt/hadoop/sbin/start-dfs.sh && /opt/hadoop/sbin/start-yarn.sh && /opt/hbase/bin/start-hbase.sh
+ExecStop=/opt/hbase/bin/stop-yarn.sh && /opt/hbase/bin/stop-dfs.sh && /opt/hadoop/sbin/stop-all.sh
 Restart=always
 
 [Install]
@@ -121,6 +98,7 @@ EOF
 
 # ===========================================
 # master
+
 
 start-all.sh && start-hbase.sh
 stop-hbase.sh && stop-all.sh

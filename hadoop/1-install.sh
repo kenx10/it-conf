@@ -9,21 +9,15 @@ mv hadoop-3.4.0 /opt/hadoop
 ssh-keygen -t rsa -b 4096 -C "hadoop@evg299.ru" -f ~/.ssh/id_rsa -q -N ""
 cat ~/.ssh/id_rsa.pub
 
-tee /etc/hosts <<EOF
-127.0.0.1 localhost
-
-::1 ip6-localhost ip6-loopback
-fe00::0 ip6-localnet
-ff00::0 ip6-mcastprefix
-ff02::1 ip6-allnodes
-ff02::2 ip6-allrouters
-ff02::3 ip6-allhosts
-
+tee -a /etc/hosts <<EOF
 192.168.1.51    hadoop1
 192.168.1.57    hadoop2
 192.168.1.44    hadoop3
 192.168.1.67    hadoop4
-192.168.1.38    hadoop5
+
+192.168.1.54    zookeeper1
+192.168.1.45    zookeeper2
+192.168.1.68    zookeeper3
 EOF
 
 
@@ -33,7 +27,6 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCjstuf6XC3ugTntaeK1slOQSxMIguYoIGcYcs3bHs9
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC582INvVjAjp9C5izTSi6rIAoORPQzJAf+8dPJRAiM4itKnl5uOhFZRSZVb6y8/wy8dkIRxMEKwxTvS9zNmWu4sUbYBE39pxx5PaFtha53Ok07X7tbMhaqTwGkShzh8YmTP2jNwahQfLkpTRbiu/jB3C2dlWgxqVyLa7i8pgco9koDzZr7ctvXGZvTBFqqeRNPiUFDzokRLUL3v8t1VddZCcx9VW9o/mU/lzD9wdzLrjKsFvzsfRb/JscVUHVnmSpDtNYqkK6p4oRj4qZcSbLexkIpdDPLOfNrZiDeUBzUmC7vMUrPJWqgud6jcDV2CnYUH4k+oeTD/wVrDF+9+iA5ZzyitR1tDhUkvrUMKHH2UeyoId7LKlwOL1YY6Qjba85+qHPp9FEkG2YCVMIXlRPberoT97cI96ibTrfWivXyYKZ7qaDGWYIPbQsikWQ6QVXzLT6N4BQJ3upaKU+CuOvrED7n2cVm5NNMa7GYEzGcTai1aIpniXeX5TgpC05PjtEGVzigaXxwPEud+leC1zUBqsonAKxA+SxK9Rd9IDQnetv/IADDE8eIguersfpihsiudl9IgclkVxt6M0lNk1PJvLQM41Dau8E6HolRJGcXft2KPtgch79VX0rDUs5XrenvHzDPlRcnoP7uJRUcxzSjXhCZj69zHt0/rqdmbgp+Ew== hadoop@evg299.ru
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDuqvv5c2bKLwZvehbijwWb+OCtrnPoiNLl67RcB0QlpK/O8WfDKVUtmQPNaMTvYfQRNMPWFb/RhBUFtODU/W2J59jLXbz2RQPcSwL7zdCTUBdkPv7DlSSeuD17Fb1b5AjsR5WNV0v0yjGwN/COae29KgozaqLgj5fyuyEP08ZGg+UP/OmLmiVfMK7C+PLTdRThLm212KSTegwxUqHml5AAQ9wteCgXgZKEkXXAjo1AF+fvSgQjejd50GJZV/+gLYeiH/a1YKDWMefBPoX90IhUJ0qLwsux/Usp6BSwleIECVtkd16wQp1Q23B3PAxH5Lctqayt6nwHxU9lmQJaVMsFkC10RD59Y3p10TH5ms3G5Jj2PAyrgf3Dk0J5sEsUgK4OocUtWIerXhg1fQw7SR76GA24td1vUnzlQYU+AF4eAHYHV/jLYcHD3YhYnxm9B6w9x6ASuJH6gv1VbJp4j6E8hw+G3yyYSkFDixNrzZPqNqyt8o7U4p39OLRAWwzJDsYHgyHl07+6LJ6JwIUqzazo7uHw/6pn0SiHJwNWyPu7Li8X2+g0cV1H94Dy1EtUXIJMmQ42RgEWHrysgW5j3ERSD6B30/b5rizq+bzbl4SlhM/8FO4zofawQHgddqkp8w+nHfewk6qwEKtPuf3jSO7idleWBQ8gaj+z0XffJkvbtw== hadoop@evg299.ru
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCwtyOm4KdU8QZuQ0689y1IgoxIN54et296E5J43g+fvZ3/6UPgk7GN86TQa/bVfxW/rdW0ogQrIRGGeWkVnSbA48umky0QaHiHHJU2CpSOTwRXUR0hgWUqKXllb154+V48rh/bRATP8EITvFPEswFrgoveWb+3bjiGO4CHOqsHvBoRFhwWRUX0Ku3itZNg+94J6hwHJB0mXU8H6VR/ApGYp2rIU47dR3KRdous44Ta9UjJ41zqRlPrUL6AtPjtSX9pDx0L5/MXbr2hCgexdn4WiSiXMHukztoDcDOkZ2xG9S4OoClMWxSKm4ch6hbuMhReUE7CDqvbThcUcCkOtS6hnNWiNfGopvsbH/YFt1qhxNx+8nouwih74K2UVy6FsK+FRuDwa7/aw7pyVUx1UF9bUsDqiGL+1N3m5THll/Plwa3luV9J66YfxYrQNyxSgYnrHQaniWx0psosgD5YU7xmgcsirciGGZ/JbaA3QeLSHQV0fUbCfi4GkwKXa950v6P/gQlGhO/uj6ylgslHeaXLCaPpXzmySlYTyOs81WyTzeqBLUMc+CNnsgkl9UU+Lx9HjbvhfS+lkKVS3pgyipdRWxjlKVla+odxnUKN92VG+PxTjxPPom51otqGrZ7RJ3rLXv/SlMa/cy+igGLbDu3jAYTGu76mW8R3c8DjaPR8yw== hadoop@evg299.ru
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCc6f4Vy+TCvcOkUwPGpyLvpF1lOHUxUyC0iwsXz0y1cSrqgr4oRSft7RE+2QUP9TtAzsg0AhkUVauq9YLmQXawNn3JAiX2UDdyH6tHLADk4viCRaJCah/JtBYLqzvEt1xHIECzg4j6HPed6NB8j6LYhzKno56mIW9urQHOHeSXJ+vknk5YXQuNOZXY/8lMp2GPBo8uDQcfqLlHpsYSRayJMXlTdRBVc61XyIBERUkqX/xU9Ew28v0huHlY/CKds7yxYO/UHmcKnxmG+Lrie/Shy7PJejHL1p6XJbylC1YgdRiRXUaD92pdNLXEMy5fjRD3gzXz5zHlWwfJ9gLK+qk8uvo51zO74ljszWvN2Xs6h6ZP0iFhuXvRxHpCdfG8ftFVnbic0oWTU/CNkSyHSuhcfOKb+e0+WPv56kgoVAV8ZMCsdlu96w7jnNKs38zYaEY0IjUao7SvXTxnBaDXPbOGJixm2gLKyOzopPxwGheCJVYU/giCXoo61aCKPfmwiIqI2GT2ZZ8JXgSuwPLpbXCbRoGNLb+C1ay7HtOmirp/qxeV/d011IJ2ug2nSWDyDtqNDcVklwTDTKBvjQILJFsByhU2k9EkKuhHg49S3hBSxn4WOjhDikgGUT5B28bIfU7vNVmlYB79ZxbHyqivJThJzU5Vz8Ycl0ZqgYHqLXyG+Q== hadoop@evg299.ru
 EOF
 
 # nano ~/.ssh/authorized_keys
@@ -46,7 +39,6 @@ EOF
 
 JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 HADOOP_HOME=/opt/hadoop
-
 tee -a ~/.bashrc <<EOF
 JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 HADOOP_HOME=/opt/hadoop
@@ -54,12 +46,12 @@ HADOOP_HOME=/opt/hadoop
 export JAVA_HOME
 export HADOOP_HOME
 
-export PATH=\$PATH:\${HADOOP_HOME}/bin
-export PATH=\$PATH:\${HADOOP_HOME}/sbin
-export HADOOP_MAPRED_HOME=\${HADOOP_HOME}
-export HADOOP_COMMON_HOME=\${HADOOP_HOME}
-export HADOOP_HDFS_HOME=\${HADOOP_HOME}
-export YARN_HOME=\${HADOOP_HOME}
+export PATH=$PATH:${HADOOP_HOME}/bin
+export PATH=$PATH:${HADOOP_HOME}/sbin
+export HADOOP_MAPRED_HOME=${HADOOP_HOME}
+export HADOOP_COMMON_HOME=${HADOOP_HOME}
+export HADOOP_HDFS_HOME=${HADOOP_HOME}
+export YARN_HOME=${HADOOP_HOME}
 EOF
 
 source ~/.bashrc
@@ -130,7 +122,6 @@ hadoop1
 hadoop2
 hadoop3
 hadoop4
-hadoop5
 EOF
 
 tee /opt/hadoop/etc/hadoop/mapred-site.xml <<EOF
@@ -154,6 +145,72 @@ EOF
 hdfs namenode -format
 # start-dfs.sh
 # start-all.sh
+
+
+tee /etc/systemd/system/hadoop-all.service <<EOF
+[Unit]
+Description=Hadoop All
+After=network.target
+
+[Service]
+User=root
+Group=root
+Type=simple
+ExecStart=/opt/hadoop/sbin/start-all.sh
+ExecStop=/opt/hadoop/sbin/stop-all.sh
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# ===========================================
+
+sudo systemctl daemon-reload
+sudo systemctl enable hadoop-all
+
+sudo systemctl start hadoop-all
+sudo systemctl status hadoop-all
+
+sudo systemctl disable hadoop-all
+
+# ===========================================
+
+tee /etc/systemd/system/hadoop-resourcemanager.service <<EOF
+[Unit]
+Description=Hadoop ResourceManager
+After=network.target
+
+[Service]
+User=root
+Group=root
+Type=simple
+ExecStart=/opt/hadoop/sbin/yarn-daemon.sh start resourcemanager
+ExecStop=/opt/hadoop/sbin/yarn-daemon.sh stop resourcemanager
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# ===========================================
+
+tee /etc/systemd/system/hadoop-nodemanager.service <<EOF
+[Unit]
+Description=Hadoop NodeManager
+After=network.target
+
+[Service]
+User=root
+Group=root
+Type=simple
+ExecStart=/opt/hadoop/sbin/yarn-daemon.sh start nodemanager
+ExecStop=/opt/hadoop/sbin/yarn-daemon.sh stop nodemanager
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+EOF
 
 
 
