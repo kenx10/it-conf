@@ -1,0 +1,13 @@
+version: '3'
+services:
+  kafdrop:
+    image: elkozmon/zoonavigator:latest
+    restart: "unless-stopped"
+    ports:
+      - "8000:8000"
+    environment:
+      HTTP_PORT: "8000"
+    extra_hosts:
+      - "zookeeper1:192.168.1.54"
+      - "zookeeper2:192.168.1.45"
+      - "zookeeper3:192.168.1.68"
