@@ -33,3 +33,7 @@
 192.168.1.54    zookeeper1
 192.168.1.45    zookeeper2
 192.168.1.68    zookeeper3
+
+192.168.1.72    cassandra1
+192.168.1.56    cassandra2
+192.168.1.41    cassandra3

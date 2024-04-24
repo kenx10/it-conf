@@ -1,0 +1,14 @@
+[Unit]
+Description=Apache Cassandra Database
+After=network.target
+
+[Service]
+User=root
+Group=root
+Type=simple
+ExecStart=/opt/cassandra/bin/cassandra -f
+ExecStop=/opt/cassandra/bin/nodetool stop
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

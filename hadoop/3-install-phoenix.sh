@@ -26,8 +26,8 @@ tee /opt/hbase/conf/hbase-site.xml <<EOF
         <value>2181</value>
     </property>
     <property>
-            <name>hbase.zookeeper.property.dataDir</name>
-            <value>/export/zookeeper</value>
+        <name>hbase.zookeeper.property.dataDir</name>
+        <value>/export/zookeeper</value>
     </property>
 
 

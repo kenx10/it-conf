@@ -81,6 +81,10 @@ lxc launch ubuntu:20.04 kafka1 --vm --network enp5s0 --config limits.cpu=4 --con
 lxc launch ubuntu:20.04 kafka2 --vm --network enp5s0 --config limits.cpu=4 --config limits.memory=4096MB
 lxc launch ubuntu:20.04 kafka3 --vm --network enp5s0 --config limits.cpu=4 --config limits.memory=4096MB
 
+lxc launch ubuntu:20.04 cassandra1 --vm --network enp5s0 --config limits.cpu=4 --config limits.memory=4096MB
+lxc launch ubuntu:20.04 cassandra2 --vm --network enp5s0 --config limits.cpu=4 --config limits.memory=4096MB
+lxc launch ubuntu:20.04 cassandra3 --vm --network enp5s0 --config limits.cpu=4 --config limits.memory=4096MB
+
 lxc launch ubuntu:20.04 docker-host --vm --network enp5s0 --config limits.cpu=4 --config limits.memory=4096MB
 ```
 
@@ -104,9 +108,7 @@ lxc stop k8s4 --force
 lxc stop k8s5 --force
 lxc stop k8s6 --force
 
-lxc stop postgres1 --force
-lxc stop postgres2 --force
-lxc stop postgres3 --force
+lxc stop postgres1 postgres2 postgres3 --force
 
 lxc stop clickhouse1 --force
 lxc stop clickhouse2 --force
@@ -120,10 +122,7 @@ lxc stop kafka1 --force
 lxc stop kafka2 --force
 lxc stop kafka3 --force
 
-lxc stop hadoop1 --force
-lxc stop hadoop2 --force
-lxc stop hadoop3 --force
-lxc stop hadoop4 --force
+lxc stop hadoop1 hadoop2 hadoop3 hadoop4 hadoop5 --force
 
 lxc stop gitlab --force
 lxc stop gitlab-worker --force
