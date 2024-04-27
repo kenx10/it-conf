@@ -114,9 +114,7 @@ lxc stop clickhouse1 --force
 lxc stop clickhouse2 --force
 lxc stop clickhouse3 --force
 
-lxc stop zookeeper1 --force
-lxc stop zookeeper2 --force
-lxc stop zookeeper3 --force
+lxc stop zookeeper1 zookeeper2 zookeeper3 --force
 
 lxc stop kafka1 --force
 lxc stop kafka2 --force
@@ -135,30 +133,11 @@ lxc stop docker-host --force
 ```
 lxc start proxy
 
-lxc start k8s1
-lxc start k8s2
-lxc start k8s3
-lxc start k8s4
-lxc start k8s5
-lxc start k8s6
-
-lxc start postgres1
-lxc start postgres2
-lxc start postgres3
-
-lxc start clickhouse1
-lxc start clickhouse2
-lxc start clickhouse3
-
-lxc start kafka1
-lxc start kafka2
-lxc start kafka3
-
-
-lxc start hadoop1
-lxc start hadoop2
-lxc start hadoop3
-lxc start hadoop4
+lxc start k8s1 k8s2 k8s3 k8s4 k8s5 k8s6
+lxc start postgres1 postgres2 postgres3
+lxc start clickhouse1 clickhouse2 clickhouse3
+lxc start kafka1 kafka2 kafka3
+lxc start hadoop1 hadoop2 hadoop3 hadoop4 hadoop5
 
 lxc start gitlab
 lxc start gitlab-worker
