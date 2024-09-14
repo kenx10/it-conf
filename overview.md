@@ -86,6 +86,11 @@ lxc launch ubuntu:20.04 cassandra2 --vm --network enp5s0 --config limits.cpu=4 -
 lxc launch ubuntu:20.04 cassandra3 --vm --network enp5s0 --config limits.cpu=4 --config limits.memory=4096MB
 
 lxc launch ubuntu:20.04 docker-host --vm --network enp5s0 --config limits.cpu=4 --config limits.memory=4096MB
+lxc launch ubuntu:20.04 android-builder --vm --network enp5s0 --config limits.cpu=4 --config limits.memory=4096MB
+
+lxc launch ubuntu:20.04 cockroach1 --vm --network enp5s0 --config limits.cpu=4 --config limits.memory=4096MB
+lxc launch ubuntu:20.04 cockroach2 --vm --network enp5s0 --config limits.cpu=4 --config limits.memory=4096MB
+lxc launch ubuntu:20.04 cockroach3 --vm --network enp5s0 --config limits.cpu=4 --config limits.memory=4096MB
 ```
 
 Проставить ssh key:

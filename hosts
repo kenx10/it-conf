@@ -37,3 +37,9 @@
 192.168.1.72    cassandra1
 192.168.1.56    cassandra2
 192.168.1.41    cassandra3
+
+192.168.1.92    cockroach1
+192.168.1.73    cockroach2
+192.168.1.129   cockroach3
+
+192.168.1.52    android-builder
